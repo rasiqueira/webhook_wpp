@@ -32,7 +32,8 @@ def webhook_handler(message: Message):
         print(response)
         output = response.json()
         print(output)
-    
+        if '55' in number:
+            number = number.split('55')[1]
         # Envia a resposta da primeira API para a segunda API
         payload = {
             "number": number,
