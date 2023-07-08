@@ -47,6 +47,7 @@ def webhook_handler(message: Message):
         }
         response = requests.post(SECOND_API_URL, headers=headers, json=payload)
         print(response)
+        print(response.text)
 
         return response.json()
 
