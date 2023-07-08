@@ -17,28 +17,30 @@ def webhook_handler(message: Message):
     # Verifica se o valor de Type é "received_message"
     print(message)
     print(message.Type)
-    if message.Type != "received_message":
+    if message.Type != "receveid_message":
         return {"message": "Invalid message type"}
+    else:
+        print('executing action')
+        # Extrai o texto da mensagem recebida
+        text = message.Body["Text"]
+    
+        # Envia o texto para a primeira API
+        payload = {"question": text}
+        print(payload)
+        response = requests.post(API_URL, json=payload)
+        print(response)
+        output = response.json()
+    
+        # Envia a resposta da primeira API para a segunda API
+        payload = {
+            "question": output["question"]
+        }
+        headers = {
+            "accept": "application/json",
+            "content-type": "application/json"
+        }
+        response = requests.post(SECOND_API_URL, headers=headers, json=payload)
+        print(response)
 
-    # Extrai o texto da mensagem recebida
-    text = message.Body["Text"]
-
-    # Envia o texto para a primeira API
-    payload = {"question": text}
-    response = requests.post(API_URL, json=payload)
-    print(response)
-    output = response.json()
-
-    # Envia a resposta da primeira API para a segunda API
-    payload = {
-        "question": output["question"]
-    }
-    headers = {
-        "accept": "application/json",
-        "content-type": "application/json"
-    }
-    response = requests.post(SECOND_API_URL, headers=headers, json=payload)
-    print(response)
-
-    return response.json()
+        return response.json()
 
