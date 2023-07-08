@@ -16,6 +16,7 @@ class Message(BaseModel):
 def webhook_handler(message: Message):
     # Verifica se o valor de Type é "received_message"
     print(message)
+    print(message.Type)
     if message.Type != "received_message":
         return {"message": "Invalid message type"}
 
