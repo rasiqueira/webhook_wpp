@@ -5,7 +5,7 @@ import requests
 app = FastAPI()
 
 API_URL = "https://backend-langchain.onrender.com/api/v1/prediction/779e1b80-a836-4914-98ee-c7791f7a2b52"
-SECOND_API_URL = "https://v5.chatpro.com.br/instance_id/api/v1/send_message"
+SECOND_API_URL = "https://v5.chatpro.com.br/chatpro-75d0d0c616/api/v1/send_message"
 
 class Message(BaseModel):
     Type: str
@@ -23,6 +23,7 @@ def webhook_handler(message: Message):
         print('executing action')
         # Extrai o texto da mensagem recebida
         text = message.Body["Text"]
+        number = message.Body["Info"]["RemoteJid"].split('@')[0]
     
         # Envia o texto para a primeira API
         payload = {"question": text}
@@ -34,11 +35,14 @@ def webhook_handler(message: Message):
     
         # Envia a resposta da primeira API para a segunda API
         payload = {
+            "number": 
             "question": output
         }
+        print(payload)
         headers = {
             "accept": "application/json",
-            "content-type": "application/json"
+            "content-type": "application/json",
+             "Authorization": "96281d9769d81f97886a4f6b994b7e1a"
         }
         response = requests.post(SECOND_API_URL, headers=headers, json=payload)
         print(response)
