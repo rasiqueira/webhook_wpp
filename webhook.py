@@ -30,6 +30,7 @@ def webhook_handler(message: Message):
         response = requests.post(API_URL, json=payload)
         print(response)
         output = response.json()
+        print(output)
     
         # Envia a resposta da primeira API para a segunda API
         payload = {
