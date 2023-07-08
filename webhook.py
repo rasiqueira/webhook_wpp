@@ -15,6 +15,7 @@ class Message(BaseModel):
 @app.post("/webhook")
 def webhook_handler(message: Message):
     # Verifica se o valor de Type é "received_message"
+    print(mesage)
     if message.Type != "received_message":
         return {"message": "Invalid message type"}
 
@@ -24,6 +25,7 @@ def webhook_handler(message: Message):
     # Envia o texto para a primeira API
     payload = {"question": text}
     response = requests.post(API_URL, json=payload)
+    print(response)
     output = response.json()
 
     # Envia a resposta da primeira API para a segunda API
@@ -35,5 +37,6 @@ def webhook_handler(message: Message):
         "content-type": "application/json"
     }
     response = requests.post(SECOND_API_URL, headers=headers, json=payload)
+    print(response)
 
     return response.json()
