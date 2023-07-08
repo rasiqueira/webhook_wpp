@@ -34,7 +34,7 @@ def webhook_handler(message: Message):
     
         # Envia a resposta da primeira API para a segunda API
         payload = {
-            "question": output["question"]
+            "question": output
         }
         headers = {
             "accept": "application/json",
