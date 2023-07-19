@@ -4,7 +4,7 @@ import requests
 
 app = FastAPI()
 
-API_URL = "https://backend-langchain.onrender.com/api/v1/prediction/c5fca50f-daea-4f07-bf9c-e5e07e91b509"
+API_URL = "https://backend-langchain.onrender.com/api/v1/prediction/56438a64-b7bd-44b6-81b7-858bbf14281d"
 SECOND_API_URL = "https://v5.chatpro.com.br/chatpro-75d0d0c616/api/v1/send_message"
 
 class Message(BaseModel):
